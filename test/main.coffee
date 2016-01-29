@@ -13,29 +13,31 @@ describe 'Bot', ->
 
   it 'should record the first checkin time of user', (done) ->
 
-    request(app).post '/messages'
+    request(app).post '/incoming'
     .set 'Content-Type': 'application/json'
     .send
       creator:
         _id: 1
         name: 'xxx'
       body: 'Hello'
+      event: 'message.create'
     .end (err, res) ->
-      res.body.should.eql ok: 1
+      res.statusCode.should.eql 200
       done err
 
   it 'should update the last visit time of user', (done) ->
 
     # Checkin again
-    request(app).post '/messages'
+    request(app).post '/incoming'
     .set 'Content-Type': 'application/json'
     .send
       creator:
         _id: 1
         name: 'xxx'
       body: 'Hello Again'
+      event: 'message.create'
     .end (err, res) ->
-      res.body.should.eql ok: 1
+      res.statusCode.should.eql 200
       done err
 
   it 'should get all the checkin data', (done) ->
