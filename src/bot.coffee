@@ -80,9 +80,11 @@ _sendCheckinSummary = ->
   return unless bot.isActive()
   return unless rules.members and config._targetId and config.webhookUrl
   model.getCheckins().then (checkins) ->
+    _checkinIds = checkins.map (checkin) -> "#{checkin._creatorId}"
+    checkinNames = checkins.map (checkin) -> "#{checkin.name}"
     nonCheckMembers = rules.members.filter (memberName) ->
-      return false if checkins._creatorId is memberName
-      return false if checkins.name.indexOf(memberName) > -1
+      return false if memberName in _checkinIds
+      return false if checkinNames.some (name) -> name?.indexOf(memberName) > -1
       return true
     if nonCheckMembers.length
       msg = "#{nonCheckMembers.join('，')} 这几个家伙还没签到，去哪儿啦？"
@@ -118,12 +120,6 @@ _sendCronData = (cronData) ->
       when 'room' then message._roomId = config._targetId
       else return false
 
-    console.log "Send message",
-      method: 'POST'
-      url: config.webhookUrl
-      json: true
-      body: message
-
     requestAsync
       method: 'POST'
       url: config.webhookUrl
@@ -139,10 +135,10 @@ module.exports = (app) ->
   app.use (err, req, res, next) ->
     res.status(500).send error: err.message
 
-  new CronJob '0 0 10 * * 1-5', _sendCheckinSummary
+  new CronJob('0 0 10 * * 1-5', _sendCheckinSummary).start()
 
   if rules.crons
     for cronRule, cronData of rules.crons
-      new CronJob cronRule, _sendCronData(cronData)
+      new CronJob(cronRule, _sendCronData(cronData)).start()
 
   bot
