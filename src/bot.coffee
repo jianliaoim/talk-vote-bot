@@ -56,7 +56,8 @@ _messageHandler = (req, res) ->
     return res.status(200).send('ok') unless replyRule
 
     # 构造回复消息
-    replyMsg =
+    replyMsg = null
+
     switch
       when replyRule.msg
         replyRule.msg = [replyRule.msg] if toString.call(replyRule.msg) is '[object String]'
@@ -113,7 +114,7 @@ _sendCronData = (cronData) ->
     return unless bot.isActive()
     return unless config.webhookUrl and config._targetId and cronData.msg
 
-    message = content: msg
+    message = content: cronData.msg
 
     switch config.targetType
       when 'story' then message._storyId = config._targetId
