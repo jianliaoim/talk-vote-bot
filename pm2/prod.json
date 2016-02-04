@@ -1,0 +1,8 @@
+[{
+  "name": "talk-checkin-bot",
+  "script": "/data/app/talk-checkin-bot/current/app.coffee",
+  "exec_mode": "cluster_mode",
+  "instances": 1,
+  "NODE_ENV": "prod",
+  "NODE_CONFIG_DIR": "/data/app/talk-checkin-bot/current/config"
+}]
