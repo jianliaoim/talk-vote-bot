@@ -51,6 +51,12 @@ _messageHandler = (req, res, next) ->
   else if voteSession
     replyMsg.body = voteSession.vote message
 
+  else if message.mentions?.length is 1
+    replyMsg.body = '''
+    你好，现在尚未开始任何投票，如需发起投票，请按如下提示操作：
+    输入 "@我 开始投票 选项1， 选项2， 选项3……"
+    '''
+
   res.status(200).send replyMsg
 
 module.exports = (app) ->
