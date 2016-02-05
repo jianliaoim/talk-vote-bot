@@ -1,6 +1,6 @@
 {
   "name": "talk-vote-bot",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "talk-vote-bot",
   "main": "./lib/index.js",
   "directories": {
