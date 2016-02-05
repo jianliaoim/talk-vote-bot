@@ -1,4 +1,3 @@
 module.exports =
-  port: 8201
+  port: 8202
   dbPath: 'db'
-  webhookUrl: null
