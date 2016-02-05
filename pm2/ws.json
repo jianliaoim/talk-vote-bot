@@ -1,8 +1,8 @@
 [{
-  "name": "talk-checkin-bot",
-  "script": "/usr/local/teambition/talk-checkin-bot/current/app.coffee",
+  "name": "talk-vote-bot",
+  "script": "/usr/local/teambition/talk-vote-bot/current/app.coffee",
   "exec_mode": "cluster_mode",
   "instances": 1,
   "NODE_ENV": "ws",
-  "NODE_CONFIG_DIR": "/usr/local/teambition/talk-checkin-bot/current/config"
+  "NODE_CONFIG_DIR": "/usr/local/teambition/talk-vote-bot/current/config"
 }]
