@@ -46,7 +46,7 @@ class VoteSession
     user = message.creator
 
     votes = voteBody
-      .split ','
+      .split /,|，/
       .map (vote) -> vote.trim()
       .filter (vote) -> vote.length
 
